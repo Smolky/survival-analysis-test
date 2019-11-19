@@ -1,0 +1,54 @@
+The raw_dataset has the following shape: (2976, 6).
+   minutes_working_since_last_maintenance  maintenance  ...   provider   team
+0                                       0            0  ...  providerA  teamA
+1                                      15            0  ...  providerA  teamA
+2                                      30            0  ...  providerA  teamA
+
+[3 rows x 6 columns]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 2976 entries, 0 to 2975
+Data columns (total 6 columns):
+minutes_working_since_last_maintenance    2976 non-null int64
+maintenance                               2976 non-null int64
+chlorine_level_ppm                        2976 non-null float64
+electric_supply                           2976 non-null float64
+provider                                  2976 non-null object
+team                                      2976 non-null object
+dtypes: float64(2), int64(2), object(2)
+memory usage: 139.6+ KB
+None
+The dataset contains 0 null values
+The dataset contains 0 duplicates
+Performing Newton-Raphson optimization
+ * Iteration #1 - Loss = 165.145 - ||grad||^2 = 11.79806
+ * Iteration #2 - Loss = 163.641 - ||grad||^2 = 5.85550
+ * Iteration #3 - Loss = 163.272 - ||grad||^2 = 2.93958
+ * Iteration #4 - Loss = 163.178 - ||grad||^2 = 1.47564
+ * Iteration #5 - Loss = 163.154 - ||grad||^2 = 0.73967
+ * Iteration #6 - Loss = 163.148 - ||grad||^2 = 0.37035
+ * Iteration #7 - Loss = 163.147 - ||grad||^2 = 0.18531
+ * Iteration #8 - Loss = 163.146 - ||grad||^2 = 0.09269
+ * Iteration #9 - Loss = 163.146 - ||grad||^2 = 0.04635
+ * Iteration #10 - Loss = 163.146 - ||grad||^2 = 0.02318
+ * Iteration #11 - Loss = 163.146 - ||grad||^2 = 0.01159
+ * Iteration #12 - Loss = 163.146 - ||grad||^2 = 0.00580
+ * Iteration #13 - Loss = 163.146 - ||grad||^2 = 0.00290
+ * Iteration #14 - Loss = 163.146 - ||grad||^2 = 0.00145
+ * Iteration #15 - Loss = 163.146 - ||grad||^2 = 0.00072
+Converged after 15 iterations.
+C-index: 0.59
+En el minuto 0 la probabilidad de mantenimiento es de 99.59%
+En el minuto 1 la probabilidad de mantenimiento es de 99.59%
+En el minuto 2 la probabilidad de mantenimiento es de 99.59%
+En el minuto 3 la probabilidad de mantenimiento es de 99.14%
+En el minuto 4 la probabilidad de mantenimiento es de 99.14%
+En el minuto 5 la probabilidad de mantenimiento es de 99.14%
+En el minuto 6 la probabilidad de mantenimiento es de 98.65%
+En el minuto 7 la probabilidad de mantenimiento es de 98.65%
+En el minuto 8 la probabilidad de mantenimiento es de 98.65%
+En el minuto 9 la probabilidad de mantenimiento es de 98.65%
+En el minuto 10 la probabilidad de mantenimiento es de 98.65%
+En el minuto 11 la probabilidad de mantenimiento es de 97.58%
+En el minuto 12 la probabilidad de mantenimiento es de 97.58%
+En el minuto 13 la probabilidad de mantenimiento es de 97.58%
+En el minuto 14 la probabilidad de mantenimiento es de 97.29%

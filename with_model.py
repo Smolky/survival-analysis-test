@@ -9,10 +9,8 @@ from pysurvival.datasets import Dataset
 from sklearn.model_selection import train_test_split
 from pysurvival.models.simulations import SimulationModel
 from pysurvival.models.multi_task import LinearMultiTaskModel
-from pysurvival.models.multi_task import NeuralMultiTaskModel
-from pysurvival.models.semi_parametric import CoxPHModel
-from pysurvival.models.svm import LinearSVMModel
 from pysurvival.utils import save_model
+from pysurvival.utils import load_model
 from pysurvival.utils.metrics import concordance_index
 from pysurvival.utils.display import correlation_matrix
 from pysurvival.utils.display import display_loss_values
@@ -73,19 +71,14 @@ T_train, T_test = data_train[time_column], data_test[time_column]
 E_train, E_test = data_train[event_column], data_test[event_column]
 
 
-bins=18
+bins=300
 
 # Initializing the MTLR with a time axis split into 300 intervals
-linear_mtlr = LinearMultiTaskModel(bins=300)
+linear_mtlr = load_model('./model.zip')
 
-# Fitting the model
-linear_mtlr.fit(X_train, T_train, E_train, num_epochs = 1000,
-                init_method = 'orthogonal', optimizer ='rmsprop',
-                lr = 1e-3, l2_reg = 3,  l2_smooth = 3, )
 
 # display_loss_values(linear_mtlr, figure_size=(7, 4))
 results = compare_to_actual(linear_mtlr, X_test, T_test, E_test, is_at_risk = False,  figure_size=(16, 6), metrics = ['rmse', 'mean', 'median'])
-sys.exit () 
 
                 
 c_index = concordance_index(linear_mtlr, X_test, T_test, E_test)
@@ -110,8 +103,7 @@ last_time_bin=linear_mtlr.times[-1];
 for n in range(0, 15*100, 15*4):
     survival_position=int(round(n*bins/last_time_bin,0))
     print('En el minuto {:.0f} la probabilidad de mantenimiento es de {:.2f}%'.format(n,survival[survival_position] * 100))
-
-print (survival)   
+    
 sys.exit () 
 
 
