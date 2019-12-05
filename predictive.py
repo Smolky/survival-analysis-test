@@ -1,3 +1,9 @@
+# PySurvival Tests
+# 
+# There is a .php file that fakes sample data
+# 
+# @link https://square.github.io/pysurvival/
+
 # Importing modules
 import pandas as pd
 import numpy as np
@@ -26,7 +32,7 @@ from pysurvival.utils.display import create_risk_groups
 # Reading the dataset
 # raw_dataset = Dataset('maintenance').load()
 raw_dataset = pd.read_csv ('sample.csv', sep=",")
-print("The raw_dataset has the following shape: {}.".format(raw_dataset.shape))
+print("The raw_dataset has the following shape: {}.".format (raw_dataset.shape))
 print(raw_dataset.head(3))
 print(raw_dataset.info())
 

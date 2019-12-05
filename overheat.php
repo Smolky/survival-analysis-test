@@ -3,8 +3,8 @@
 /**
  * Generate sample data
  *
- * This script is used to generate sample data to test 
- * pysurvival library
+ * This fake data will break a machine two hours 
+ * after an overheat 
  *
  * @author José Antonio García-Díaz <joseantonio.garcia8@um.es>
  */
@@ -72,6 +72,14 @@ echo implode (',', $headers) . "\r\n";
 $i = 0;
 
 
+/** @var $will_overheat false */
+$will_overheat = false;
+
+
+/** @var $electric_supply float Current electry supply */
+$electric_supply = 0;
+
+
 // For each period...
 foreach ($daily_period as $date) {
     
@@ -83,14 +91,28 @@ foreach ($daily_period as $date) {
     $minutes_working_without_maintenance = $difference->format ('%i') + ($difference->format ('%h') * 60);
     
     
-    /** @var $maintenance boolean Detect if the machine crashes and maintenance has to be performed */
-    $maintenance = $minutes_working_without_maintenance <= (60 * 10) ? false : (0 === rand (0, 10));
+    /** @var $will_overheat boolean Detect if the machine will broken sooner */
+    if ( ! $will_overheat) {
+        $will_overheat = $minutes_working_without_maintenance <= (60 * 10) ? false : (0 === rand (0, 10));
+    }
     
     
-    /** @var $electric_supply float Current electry supply */
-    $electric_supply = $faker->biasedNumberBetween (4, 20 - 1, function ($x) use ($i) {
-        return ($i / 100) + sqrt ($x);
-    }) + $faker->randomFloat (5, 0, 1);
+    /** @var $maintenance boolean The machine crashes after two hours after an overheat */
+    $maintenance = $will_overheat && $minutes_working_without_maintenance == 120;
+    
+    
+    // If the machine will overheat we will add extra electric power
+    // We divide first the minutes between intervals of teen minutes
+    // Then we remove 60 pieces, that is when the machine has been working fine
+    // Finally, divide into 10 to get a real temperature
+    if ($will_overheat) {
+        $electric_supply += (($minutes_working_without_maintenance / 10) - 60) / 10;
+    } else {
+        $electric_supply = $faker->biasedNumberBetween (4, 20 - 1, function ($x) use ($i) {
+            return ($i / 100) + sqrt ($x);
+        }) + $faker->randomFloat (5, 0, 1);
+        
+    }
     
     
     /** @var $chlorine_level_ppm float */
@@ -122,6 +144,7 @@ foreach ($daily_period as $date) {
     if ($maintenance) {
         $last_maintenance_date = clone $date;
         $i = 0;
+        $will_overheat = false;
     } else {
         $i++;
     }
